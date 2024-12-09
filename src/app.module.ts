@@ -29,8 +29,6 @@ import { googleCredentialsConfig, googleOAuth2Config } from './config/google-cre
     GoogleSheetModule,
     DatabaseModule,
     UsersModule,    
-
-
   ],
   controllers: [AppController],
   providers: [AppService],

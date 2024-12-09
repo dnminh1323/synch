@@ -12,6 +12,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DatabaseModule } from './modules/database/database.module';
 import { databaseConfig } from './config/database.config';
 import { UsersModule } from './modules/database/users/users.module';
+import { googleCredentialsConfig, googleOAuth2Config } from './config/google-credentials.config';
 
 
 
@@ -20,6 +21,7 @@ import { UsersModule } from './modules/database/users/users.module';
   imports: [ContactModule, CompanyModule, AuthModule, 
     ConfigModule.forRoot({
       isGlobal: true, // Để ConfigModule có thể được sử dụng toàn cục
+      load: [googleCredentialsConfig, googleOAuth2Config],
     }),
     TypeOrmModule.forRoot(databaseConfig),
     BitrixModule,

@@ -51,7 +51,7 @@ export class GoogleAuthController {
                 }
             }
 
-            // Nếu không có token hoặc refresh thất bại, chuyển hướng để xác thực mới
+            // Nếu không có token hoặc refresh thất bại, redirect sang xác thực mới
             const authUrl: string = this.googleAuthProvider.getAuthUrl(domain);
             res.redirect(authUrl);
         } catch (error) {

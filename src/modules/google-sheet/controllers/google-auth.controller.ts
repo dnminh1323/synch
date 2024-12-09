@@ -59,13 +59,3 @@ export class GoogleAuthController {
         }
     }
 } 
-
-/**
- * Đặt route /callback lên trước route /:domain
-    NestJS sẽ match các routes theo thứ tự khai báo
-    Khi có request đến /callback, nó sẽ match với route đầu tiên thay vì coi "callback" là một domain
-    Với cách này:
-    /auth/google/callback sẽ match với route callback
-    /auth/google/example.com sẽ match với route domain
-    Không còn xung đột giữa các routes nữa
- */

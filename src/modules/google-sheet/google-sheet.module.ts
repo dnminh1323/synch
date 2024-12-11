@@ -45,6 +45,6 @@ import { UsersModule } from '../database/users/users.module';
       },
     },
   ],
-  exports: [GoogleSheetServiceFactory],
+  exports: [GoogleSheetServiceFactory, GoogleAuthProvider],
 })
 export class GoogleSheetModule {}

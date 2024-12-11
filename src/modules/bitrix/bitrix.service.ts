@@ -72,7 +72,7 @@ export class BitrixService {
    * @returns Access token mới.
    * @throws Lỗi nếu không thể làm mới token.
    */
-  private async refreshToken(): Promise<string> {
+  async refreshToken(): Promise<any> {
     if (!this.oauthConfig) {
       throw new Error('OAuth configuration is missing');
     }
@@ -90,7 +90,9 @@ export class BitrixService {
       });
 
       this.oauthConfig.access_token = response.data.access_token;
-      return this.oauthConfig.access_token;
+      this.oauthConfig.refresh_token = response.data.refresh_token || refresh_token;
+
+      return this.oauthConfig;
     } catch (error: any) {
       const errorMessage = error.response?.data
         ? JSON.stringify(error.response.data)
@@ -124,7 +126,8 @@ export class BitrixService {
       console.log(response);
       return response.data;
     } catch (error) {
-      const accessToken = await this.refreshToken();
+      const oauthConfig = await this.refreshToken();
+      const accessToken = oauthConfig.access_token;
       const response = await this.axiosInstance.post(
         method,
         { ...params },

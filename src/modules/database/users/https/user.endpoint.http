@@ -10,34 +10,11 @@ Accept: application/json
 
 ###
 
-### Tạo một người dùng mới
-POST http://localhost:3000/users
-Content-Type: application/json
+### Thêm SpreadsheetId vào người dùng
+PUT http://localhost:3000/users/example2.com/spreadsheets/1AbCdEfGhIjKlMnOpQrStUvWxYz
 
-{
-  "domain": "example2.com",
-  "subscription": {
-    "type": "trial",
-    "expiry": "2024-12-31T23:59:59Z"
-  },
-  "token": {
-    "bitrix_token": {
-      "access_token": "bitrix_access_token",
-      "refresh_token": "bitrix_refresh_token"
-    },
-    "google_token": {
-      "access_token": "google_access_token",
-      "refresh_token": "google_refresh_token",
-      "scope": "google_scope",
-      "token_type": "google_token_type",
-      "expiry_date": "2024-12-31T23:59:59Z"
-    }
-  },
-  "email": "example1@example.com",
-  "phoneNumber": "0123456789",
-  "fullName": "Nguyễn Văn A"
-}
-
+### Xóa SpreadsheetId khỏi người dùng
+DELETE http://localhost:3000/users/example2.com/spreadsheets/1AbCdEfGhIjKlMnOpQrStUvWxYz
 ###
 
 ### Tạo một người dùng (domain) mới
@@ -45,7 +22,7 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-  "domain": "domain0.com",
+  "domain": "example2.com",
   "subscription": {
     "type": "trial",
     "expiry": "2024-12-31T23:59:59Z"

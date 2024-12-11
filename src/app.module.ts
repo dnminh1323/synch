@@ -13,6 +13,8 @@ import { DatabaseModule } from './modules/database/database.module';
 import { databaseConfig } from './config/database.config';
 import { UsersModule } from './modules/database/users/users.module';
 import { googleCredentialsConfig, googleOAuth2Config } from './config/google-credentials.config';
+import { ScheduleModule } from '@nestjs/schedule';
+import { TokenRefreshService } from './modules/token-refresh/token-refresh.service';
 
 
 
@@ -20,7 +22,7 @@ import { googleCredentialsConfig, googleOAuth2Config } from './config/google-cre
 @Module({
   imports: [ContactModule, CompanyModule, AuthModule, 
     ConfigModule.forRoot({
-      isGlobal: true, // Để ConfigModule có thể được sử dụng toàn cục
+      isGlobal: true, 
       load: [googleCredentialsConfig, googleOAuth2Config],
     }),
     TypeOrmModule.forRoot(databaseConfig),
@@ -29,8 +31,9 @@ import { googleCredentialsConfig, googleOAuth2Config } from './config/google-cre
     GoogleSheetModule,
     DatabaseModule,
     UsersModule,    
+    ScheduleModule.forRoot(),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, TokenRefreshService],
 })
 export class AppModule {}

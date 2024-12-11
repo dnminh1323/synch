@@ -415,4 +415,6 @@ export class GoogleSheetConnectorProvider {
 
         return google.sheets({version: 'v4', auth: this.authClient});
     }
+
+    // Thiếu xử lý webhook
 }

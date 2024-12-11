@@ -3,6 +3,7 @@ import {
   IsString,
   IsOptional,
   ValidateNested,
+  IsArray,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { SubscriptionDto } from './subscription.dto';
@@ -37,4 +38,9 @@ export class CreateUserDto {
   @IsOptional()
   @IsString()
   fullName?: string;
+
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  spreadsheetIds?: string[];
 }

@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './entities/user.entity';
 import { GoogleTokenDto } from './dto/google-token.dto';
 import { BitrixTokenDto } from './dto/bitrix-token.dto';
 
@@ -130,4 +130,28 @@ export class UsersService {
     const user = await this.findOne(domain);
     await this.userRepository.remove(user);
   }
+
+
+// Thêm spreadsheetId vào danh sách
+async addSpreadsheetId(domain: string, spreadsheetId: string): Promise<User> {
+  const user = await this.findOne(domain);
+  if (!user.spreadsheetIds) {
+    user.spreadsheetIds = [];
+  }
+  if (!user.spreadsheetIds.includes(spreadsheetId)) {
+    user.spreadsheetIds.push(spreadsheetId);
+    return this.userRepository.save(user);
+  }
+  return user;
+}
+
+// Xóa spreadsheetId khỏi danh sách
+async removeSpreadsheetId(domain: string, spreadsheetId: string): Promise<User> {
+  const user = await this.findOne(domain);
+  if (user.spreadsheetIds) {
+    user.spreadsheetIds = user.spreadsheetIds.filter(id => id !== spreadsheetId);
+    return this.userRepository.save(user);
+  }
+  return user;
+}
 }

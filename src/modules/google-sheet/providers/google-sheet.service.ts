@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { GoogleSheetConfig } from '../interfaces/google-sheet-config.interface';
 import { GoogleAuthProvider } from './google-auth.provider';
 import { google } from 'googleapis';
+import { UsersService } from 'src/modules/database/users/users.service';
 
 interface SheetConfig {
   title: string;
@@ -13,6 +14,7 @@ export class GoogleSheetService {
   constructor(
     private readonly config: GoogleSheetConfig,
     private readonly googleAuthProvider: GoogleAuthProvider,
+    private readonly usersService: UsersService,
   ) {}
 
   private async getClient() {
@@ -68,7 +70,7 @@ export class GoogleSheetService {
     columnCount: 100
   } as const;
 
-  async createSpreadsheet(title: string): Promise<string> {
+  async createSpreadsheet(title: string, domain: string): Promise<string> {
     const auth = await this.getClient();
     const sheets = google.sheets({ version: 'v4', auth });
     
@@ -147,6 +149,9 @@ export class GoogleSheetService {
         ])).flat()
       }
     });
+
+    // 4. Thêm spreadsheetId vào danh sách
+    await this.usersService.addSpreadsheetId(domain, spreadsheetId);  
 
     return spreadsheetId;
   }

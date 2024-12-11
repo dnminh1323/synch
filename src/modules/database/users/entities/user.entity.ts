@@ -47,5 +47,8 @@ export class User {
 
     @Column({ nullable: true })
     fullName?: string;
+
+    @Column('simple-array', { nullable: true })
+    spreadsheetIds?: string[];
 }
 

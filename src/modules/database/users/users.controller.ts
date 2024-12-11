@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -53,5 +53,26 @@ export class UsersController {
   @ApiOperation({ summary: 'Xóa người dùng' })
   remove(@Param('domain') domain: string): Promise<void> {
     return this.usersService.remove(domain);
+  }
+
+
+
+
+  // Thêm spreadsheetId
+  @Put(':domain/spreadsheets/:spreadsheetId')
+  async addSpreadsheetId(
+    @Param('domain') domain: string,
+    @Param('spreadsheetId') spreadsheetId: string,
+  ): Promise<User> {
+    return this.usersService.addSpreadsheetId(domain, spreadsheetId);
+  }
+
+  // Xóa spreadsheetId
+  @Delete(':domain/spreadsheets/:spreadsheetId')
+  async removeSpreadsheetId(
+    @Param('domain') domain: string,
+    @Param('spreadsheetId') spreadsheetId: string,
+  ): Promise<User> {
+      return this.usersService.removeSpreadsheetId(domain, spreadsheetId);
   }
 }
